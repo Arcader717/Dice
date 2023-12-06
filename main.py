@@ -5,16 +5,12 @@ from discord.ext.commands import has_permissions
 import os # Secret variables
 import random
 
-from dotenv import load_dotenv # Loads the secret values
-
-load_dotenv() # The () means I'm using the function
-
 intents = discord.Intents.all()
 intents.message_content = True
 
-client = discord.Client(intents=intents, application_id=os.getenv('CLID'))
+client = discord.Client(intents=intents, application_id="1182093023274868777")
 bot = commands.Bot(command_prefix="/", intents=intents)
-token = os.getenv('BOT_TOKEN') or ""
+token = os.environ['BOT_TOKEN'] or ""
 
 @bot.event
 async def on_ready():
@@ -33,14 +29,19 @@ async def on_ready():
     name="roll",
     description="Roll the dice!"
 )
-@apc.choices(Dice=[
+@apc.choices(dice=[
     apc.Choice(name="D6", value="6"),
     apc.Choice(name="D20", value="20")
 ])
-async def roll(i: discord.Interaction, Dice: apc.Choice[str]):
-    if Dice == "6":
-        await i.response.send_message(f"{interaction.user.name} rolled a D6 and got a {str(random.randint(1, 6)}")
-    elif Dice == "20":
-        await i.response.send_message(f"{interaction.user.name} rolled a D20 and got a {str(random.randint(1, 20)}")
+async def roll(i: discord.Interaction, dice: apc.Choice[str]):
+    r = i.response
+    print(type(dice.value))
+    if dice.value == "6":
+        await r.send_message(f"{i.user.mention} rolled a D6 and got a ***{str(random.randint(1, 6))}***")
+    elif dice.value == "20":
+        await r.send_message(f"{i.user.mention} rolled a D20 and got a ***{str(random.randint(1, 20))}***")
     
 
+if __name__ == "__main__":
+    token = os.environ['BOT_TOKEN']
+    bot.run(token)
