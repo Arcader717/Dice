@@ -23,11 +23,15 @@ def is_alpha():
             return False
     return apc.check(predicate)
 
-class ocreateView(discord.ui.View):
-    def __init__(self):
+class ocreateClassView(discord.ui.View):
+    def __init__(self, name):
         super().__init__(timeout=None)
+        self.name = name
 
-    @discord.ui.button()
+    @discord.ui.button(label="Fighter", style=discord.ButtonStyle.secondary)
+    async def fighter(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Fighter** named ***{self.name}***")
 
     
 
@@ -80,7 +84,8 @@ async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     description="A version of the /create command, making it simpler"
 )
 @is_alpha()
-async def onboard(i: discord.Interaction):
+@apc.describe(name="The name of your character")
+async def onboard(i: discord.Interaction, name: str):
     r = i.response
     e = discord.Embed(title="***Pick a Class***", color=0x7ae4ff)
     e.add_field(name="Fighter", value="Fighters are a really *in* *your* *face* kind of person, and will hit even harder when in range", inline=False)
@@ -90,7 +95,8 @@ async def onboard(i: discord.Interaction):
     e.add_field(name="Bard", value="Known for their charm, Bards can support their allies through song, but are weak to being attacked", inline=False)
     e.add_field(name="Wizard", value="Beings of great Elemental power and knowledge. Wizards are immune to attacks using the same element as them, but are weak to certain other elements ", inline=False)
     e.add_field(name="Hero", value="Not having any major increase in stats to boast about, Hero isn't for everyone, but that special can hit ***REALLY*** hard", inline=False)
-    await r.send_message(embed)
+    v = ocreateClassView(name)
+    await r.send_message(embed=e, view=v)
 
 
 if __name__ == "__main__":
