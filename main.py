@@ -35,7 +35,7 @@ async def on_ready():
 ])
 async def roll(i: discord.Interaction, dice: apc.Choice[str]):
     r = i.response
-    await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, dice.value))}***") # Simulates a Dice
+    await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, int(dice.value)))}***") # Simulates a Dice
     
 
 @bot.tree.command(
@@ -52,9 +52,9 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
     apc.Choice(name="Wizard", value="w"),
     apc.Choice(name="Hero", value="h")
 ])
-async def create(i: discord.Interaction, name: str,type: apc.Choice[str]):
+async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     r = i.response
-    await r.send_message(f"{i.user.mention} made a new {type.name} named ***{name}***")
+    await r.send_message(f"{i.user.mention} made a new {str(type.name)} named ***{name}***")
 
 if __name__ == "__main__":
     token = os.environ['BOT_TOKEN']
