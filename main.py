@@ -35,9 +35,8 @@ async def on_ready():
 ])
 async def roll(i: discord.Interaction, dice: apc.Choice[str]):
     r = i.response
-    print(type(dice.value))
     if dice.value == "6":
-        await r.send_message(f"{i.user.mention} rolled a D6 and got a ***{str(random.randint(1, 6))}***")
+        await r.send_message(f"{i.user.mention} rolled a D6 and got a ***{str(random.randint(1, 6))}***") # Simulates a D6
     elif dice.value == "20":
         await r.send_message(f"{i.user.mention} rolled a D20 and got a ***{str(random.randint(1, 20))}***")
     
