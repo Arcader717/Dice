@@ -5,6 +5,8 @@ from discord.ext.commands import has_permissions
 import os # Secret variables
 import random
 
+from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
+
 intents = discord.Intents.all()
 intents.message_content = True
 
