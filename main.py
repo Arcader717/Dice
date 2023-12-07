@@ -54,7 +54,7 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
 ])
 async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     r = i.response
-    await r.send_message(f"{i.user.mention} made a new {str(type.name)} named ***{name}***")
+    await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")
 
 if __name__ == "__main__":
     token = os.environ['BOT_TOKEN']
