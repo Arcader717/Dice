@@ -23,6 +23,9 @@ def is_alpha():
             return False
     return apc.check(predicate)
 
+
+
+
 class ocreateClassView(discord.ui.View):
     def __init__(self, name):
         super().__init__(timeout=None)
@@ -32,6 +35,38 @@ class ocreateClassView(discord.ui.View):
     async def fighter(self, i: discord.Interaction, b: discord.ui.Button):
         r = i.response
         await response.edit(f"{i.user.mention} made a new **Fighter** named ***{self.name}***")
+
+    @discord.ui.button(label="Ranger", style=discord.ButtonStyle.secondary)
+    async def ranger(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Ranger** named ***{self.name}***")
+
+    @discord.ui.button(label="Thief", style=discord.ButtonStyle.secondary)
+    async def thief(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Thief** named ***{self.name}***")
+    
+    @discord.ui.button(label="Guardian", style=discord.ButtonStyle.secondary)
+    async def guardian(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Guardian** named ***{self.name}***")
+    
+    @discord.ui.button(label="Bard", style=discord.ButtonStyle.secondary)
+    async def bard(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Bard** named ***{self.name}***")
+
+    @discord.ui.button(label="Wizard", style=discord.ButtonStyle.secondary)
+    async def wizard(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Wizard** named ***{self.name}***")
+
+    @discord.ui.button(label="Hero", style=discord.ButtonStyle.secondary)
+    async def hero(self, i: discord.Interaction, b: discord.ui.Button):
+        r = i.response
+        await response.edit(f"{i.user.mention} made a new **Hero** named ***{self.name}***")
+
+
 
     
 
