@@ -5,7 +5,7 @@ from discord.ext.commands import has_permissions
 import os # Secret variables
 import random
 
-from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
+# from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
 from alpha import alpha_id
 
 intents = discord.Intents.all()
@@ -34,7 +34,7 @@ class ocreateClassView(discord.ui.View):
     @discord.ui.button(label="Fighter", style=discord.ButtonStyle.secondary)
     async def fighter(self, i: discord.Interaction, b: discord.ui.Button):
         r = i.response
-        await response.edit(f"{i.user.mention} made a new **Fighter** named ***{self.name}***")
+        await r.edit_message(content=f"{i.user.mention} made a new **Fighter** named ***{self.name}***", embed=None, view=None)
 
     @discord.ui.button(label="Ranger", style=discord.ButtonStyle.secondary)
     async def ranger(self, i: discord.Interaction, b: discord.ui.Button):
