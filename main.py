@@ -6,6 +6,7 @@ import os # Secret variables
 import random
 
 from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
+from alpha import alpha_id
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -13,6 +14,22 @@ intents.message_content = True
 client = discord.Client(intents=intents, application_id="1182093023274868777")
 bot = commands.Bot(command_prefix="/", intents=intents)
 token = os.environ['BOT_TOKEN'] or ""
+
+def is_alpha():
+    def predicate(i: discord.Interaction):
+        if i.user.id in alpha_id:
+            return True
+        else:
+            return False
+    return apc.check(predicate)
+
+class ocreateView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button()
+
+    
 
 @bot.event
 async def on_ready():
@@ -57,6 +74,24 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
 async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     r = i.response
     await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")
+
+@bot.tree.command(
+    name="ocreate",
+    description="A version of the /create command, making it simpler"
+)
+@is_alpha()
+async def onboard(i: discord.Interaction):
+    r = i.response
+    e = discord.Embed(title="***Pick a Class***", color=0x7ae4ff)
+    e.add_field(name="Fighter", value="Fighters are a really *in* *your* *face* kind of person, and will hit even harder when in range", inline=False)
+    e.add_field(name="Ranger", value="Skilled in the use of bows, Rangers can hit enemies from further away, and sometimes even multiple ", inline=False)
+    e.add_field(name="Thief", value="Using their stealth and agility, Thieves can scout ahead, and sneak around enemies", inline=False)
+    e.add_field(name="Guardian", value="Slow but tough, basically the Guardian motto, whatever they lack in speed they make up for greatly in defense", inline=False)
+    e.add_field(name="Bard", value="Known for their charm, Bards can support their allies through song, but are weak to being attacked", inline=False)
+    e.add_field(name="Wizard", value="Beings of great Elemental power and knowledge. Wizards are immune to attacks using the same element as them, but are weak to certain other elements ", inline=False)
+    e.add_field(name="Hero", value="Not having any major increase in stats to boast about, Hero isn't for everyone, but that special can hit ***REALLY*** hard", inline=False)
+    await r.send_message(embed)
+
 
 if __name__ == "__main__":
     token = os.environ['BOT_TOKEN']
