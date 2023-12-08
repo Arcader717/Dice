@@ -151,12 +151,31 @@ async def on_ready():
     apc.Choice(name="D6", value="6"),
     apc.Choice(name="D20", value="20")
 ])
-async def roll(i: discord.Interaction, dice: apc.Choice[str]):
+@apc.describe(number="The number of dice you want to roll")
+async def roll(i: discord.Interaction, dice: apc.Choice[str], number: int | None):
     r = i.response
-    await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, int(dice.value)))}***") # Simulates a Dice
+    if isinstance(number, None):
+        await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, int(dice.value)))}***") # Simulates a Dice
+    elif isinstance(number, int):
+        if number > 10:
+            await r.send_message("Too many dice, try less than or equal to 10", ephemeral=True)
+        rollNum = 0
+        rolled = []
+        total = 0
+        rollStr = ""
+        while rollNum < number:
+            rollNum += 1
+            rolled.append = str(random.randint(1, int(dice.value)))
+        for roll in rolled:
+            total += int(roll)
+            if roll == rolled[number - 1]:
+                rollStr = rollStr + f"**{str(roll)}**"
+            else:
+                rollStr = rollStr + f"**{str(roll)}**, "
+        await r.send_message(f"{i.user.mention} rolled {str(number)} D{dice.value}'s, and got {rollStr} for a total of {str(total)}"
     
 
-@bot.tree.command(
+"""@bot.tree.command(
     name="create",
     description="Create a character"
 )
@@ -172,13 +191,12 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
 ])
 async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     r = i.response
-    await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")
+    await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")"""
 
 @bot.tree.command(
-    name="ocreate",
-    description="A version of the /create command, making it simpler"
+    name="create",
+    description="Create a character"
 )
-@is_alpha()
 @apc.describe(name="The name of your character")
 async def onboard(i: discord.Interaction, name: str):
     r = i.response
