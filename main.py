@@ -156,7 +156,7 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
     await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, int(dice.value)))}***") # Simulates a Dice
     
 
-@bot.tree.command(
+"""@bot.tree.command(
     name="create",
     description="Create a character"
 )
@@ -172,13 +172,12 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str]):
 ])
 async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     r = i.response
-    await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")
+    await r.send_message(f"{i.user.mention} made a new **{str(type.name)}** named ***{name}***")"""
 
 @bot.tree.command(
-    name="ocreate",
-    description="A version of the /create command, making it simpler"
+    name="create",
+    description="Create a character"
 )
-@is_alpha()
 @apc.describe(name="The name of your character")
 async def onboard(i: discord.Interaction, name: str):
     r = i.response
