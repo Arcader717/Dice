@@ -138,7 +138,7 @@ async def on_ready():
     except Exception as e:
         print(f"\n{e}")
     finally:
-        print("Bot is Online!")
+        print("Bot is Online!\n")
         await bot.change_presence(activity=discord.Activity(
             type=discord.ActivityType.listening, name="/roll"
         ))
@@ -154,7 +154,7 @@ async def on_ready():
 @apc.describe(number="The number of dice you want to roll")
 async def roll(i: discord.Interaction, dice: apc.Choice[str], number: int | None):
     r = i.response
-    if isinstance(number, None):
+    if not isinstance(number, int):
         await r.send_message(f"{i.user.mention} rolled a D{dice.value} and got a ***{str(random.randint(1, int(dice.value)))}***") # Simulates a Dice
     elif isinstance(number, int):
         if number > 10:
@@ -165,14 +165,14 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str], number: int | None
         rollStr = ""
         while rollNum < number:
             rollNum += 1
-            rolled.append = str(random.randint(1, int(dice.value)))
+            rolled.append(str(random.randint(1, int(dice.value))))
         for roll in rolled:
             total += int(roll)
             if roll == rolled[number - 1]:
                 rollStr = rollStr + f"**{str(roll)}**"
             else:
                 rollStr = rollStr + f"**{str(roll)}**, "
-        await r.send_message(f"{i.user.mention} rolled {str(number)} D{dice.value}'s, and got {rollStr} for a total of {str(total)}"
+        await r.send_message(f"{i.user.mention} rolled {str(number)} D{dice.value}'s, and got {rollStr} for a total of ***{str(total)}***")
     
 
 """@bot.tree.command(
