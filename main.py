@@ -3,6 +3,7 @@ from discord import app_commands as apc
 from discord.ext import commands
 import os # Secret variables
 import random
+from keep_alive import keep_alive
 
 # from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
 from alpha import alpha_id
@@ -172,7 +173,7 @@ async def roll(i: discord.Interaction, dice: apc.Choice[str], number: int | None
                 rollStr = rollStr + f"**{str(roll)}**"
             else:
                 rollStr = rollStr + f"**{str(roll)}**, "
-        await r.send_message(f"{i.user.mention} rolled {str(number)} D{dice.value}'s, and got {rollStr} for a total of {str(total)}"
+        await r.send_message(f"{i.user.mention} rolled {str(number)} D{dice.value}'s, and got {rollStr} for a total of {str(total)}")
     
 
 """@bot.tree.command(
@@ -198,13 +199,25 @@ async def create(i: discord.Interaction, name: str, type: apc.Choice[str]):
     description="Create a character"
 )
 @apc.describe(name="The name of your character")
-async def onboard(i: discord.Interaction, name: str):
+async def create(i: discord.Interaction, name: str):
     r = i.response
     e = await ocreateClassEmbeds().getPage(1)
     v = ocreateClassView(name, 1)
     await r.send_message(embed=e, view=v)
 
 
+@bot.tree.command(
+    name="turn",
+    description="Take a turn"
+)
+@is_alpha()
+async def turn(i: discord.Interaction):
+    r = i.response
+    if True: # The condition if it's there turn
+        await r.send_message("This doesn't work yet, check back later")
+
+
 if __name__ == "__main__":
+    keep_alive()
     token = os.environ['BOT_TOKEN']
     bot.run(token)
