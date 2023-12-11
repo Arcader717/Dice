@@ -7,6 +7,7 @@ from keep_alive import keep_alive
 
 # from data.classes import Class, Fighter, Ranger, Thief, Guardian, Bard, Wizard, Hero
 from alpha import alpha_id
+from views import baseTurnViews
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -215,7 +216,8 @@ async def create(i: discord.Interaction, name: str):
 async def turn(i: discord.Interaction):
     r = i.response
     if True: # The condition if it's there turn
-        await r.send_message("This doesn't work yet, check back later")
+        v = baseTurnViews()
+        await r.send_message("Pick a button", view=v)
 
 
 if __name__ == "__main__":
